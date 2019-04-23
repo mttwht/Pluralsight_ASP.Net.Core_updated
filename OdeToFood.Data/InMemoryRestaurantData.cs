@@ -38,9 +38,11 @@ namespace OdeToFood.Data
             };
         }
 
-        IEnumerable<Restaurant> IRestaurantData.GetAll()
+        IEnumerable<Restaurant> IRestaurantData.GetRestaurantsByName(string name=null)
         {
-            return restaurants.OrderBy(r => r.Name);
+            return restaurants
+                .Where(r => name==null || r.Name.Contains(name))
+                .OrderBy(r => r.Name);
         }
     }
 }
