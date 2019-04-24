@@ -38,6 +38,11 @@ namespace OdeToFood.Data
             };
         }
 
+        Restaurant IRestaurantData.GetById(int id)
+        {
+            return restaurants.SingleOrDefault(r => r.Id == id);
+        }
+
         IEnumerable<Restaurant> IRestaurantData.GetRestaurantsByName(string name=null)
         {
             return restaurants
