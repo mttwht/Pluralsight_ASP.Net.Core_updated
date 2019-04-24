@@ -41,7 +41,7 @@ namespace OdeToFood.Data
         IEnumerable<Restaurant> IRestaurantData.GetRestaurantsByName(string name=null)
         {
             return restaurants
-                .Where(r => name==null || r.Name.Contains(name))
+                .Where(r => name==null || r.Name.Contains(name, System.StringComparison.CurrentCultureIgnoreCase))
                 .OrderBy(r => r.Name);
         }
     }
