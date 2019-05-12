@@ -39,15 +39,28 @@ namespace OdeToFood.Data
         }
 
         Restaurant IRestaurantData.GetById(int id)
+            => restaurants.SingleOrDefault(r => r.Id == id);
+
+        IEnumerable<Restaurant> IRestaurantData.GetRestaurantsByName(string name = null)
+            => restaurants
+                .Where(r => name == null || r.Name.Contains(name, System.StringComparison.CurrentCultureIgnoreCase))
+                .OrderBy(r => r.Name);
+
+        Restaurant IRestaurantData.Update(Restaurant restaurant)
         {
-            return restaurants.SingleOrDefault(r => r.Id == id);
+            var existing = restaurants
+                .SingleOrDefault(r => r.Id == restaurant.Id);
+
+            if(existing != null) {
+                existing.Name = restaurant.Name;
+                existing.Location = restaurant.Location;
+                existing.Cuisine = restaurant.Cuisine;
+            }
+
+            return existing;
         }
 
-        IEnumerable<Restaurant> IRestaurantData.GetRestaurantsByName(string name=null)
-        {
-            return restaurants
-                .Where(r => name==null || r.Name.Contains(name, System.StringComparison.CurrentCultureIgnoreCase))
-                .OrderBy(r => r.Name);
-        }
+        int IRestaurantData.Commit()
+            => 0;
     }
 }

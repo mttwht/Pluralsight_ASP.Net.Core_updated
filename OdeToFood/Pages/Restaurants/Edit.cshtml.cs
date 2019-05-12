@@ -15,6 +15,7 @@ namespace OdeToFood.Pages.Restaurants
         private readonly IRestaurantData restaurantData;
         private readonly IHtmlHelper htmlHelper;
 
+        [BindProperty]
         public Restaurant Restaurant { get; set; }
 
         public IEnumerable<SelectListItem> CuisineItems { get; set; }
@@ -34,6 +35,14 @@ namespace OdeToFood.Pages.Restaurants
             if(Restaurant == null) {
                 return RedirectToPage("./NotFound");
             }
+            return Page();
+        }
+
+        public IActionResult OnPost()
+        {
+            Restaurant = restaurantData.Update(Restaurant);
+            restaurantData.Commit();
+
             return Page();
         }
     }
