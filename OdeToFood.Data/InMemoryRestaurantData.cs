@@ -46,6 +46,13 @@ namespace OdeToFood.Data
                 .Where(r => name == null || r.Name.Contains(name, System.StringComparison.CurrentCultureIgnoreCase))
                 .OrderBy(r => r.Name);
 
+        Restaurant IRestaurantData.Add(Restaurant restaurant)
+        {
+            restaurants.Add(restaurant);
+            restaurant.Id = restaurants.Max(r => r.Id) + 1;
+            return restaurant;
+        }
+
         Restaurant IRestaurantData.Update(Restaurant restaurant)
         {
             var existing = restaurants
