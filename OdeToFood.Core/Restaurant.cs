@@ -11,6 +11,7 @@ namespace OdeToFood.Core
 
         [Required, StringLength(255)]
         public string Location { get; set; }
+
         public CuisineType Cuisine { get; set; }
     }
 }
