@@ -43,6 +43,8 @@ namespace OdeToFood.Pages.Restaurants
             Restaurant = restaurantData.Update(Restaurant);
             restaurantData.Commit();
 
+            CuisineItems = htmlHelper.GetEnumSelectList<CuisineType>();
+
             return Page();
         }
     }
